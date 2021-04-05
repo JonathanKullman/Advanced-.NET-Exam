@@ -58,7 +58,6 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                     );
 
             string[] csvLines = File.ReadAllLines(@"C:\Users\jonte\source\repos\Tenta-Advnet-Jonathan-Kullman-2\Tenta-Advnet-Jonathan-Kullman-2\CSV FILE\Hamsterlista30.csv");
-            Owner owner = new Owner();
 
             for (int i = 0; i < csvLines.Length; i++)
             {

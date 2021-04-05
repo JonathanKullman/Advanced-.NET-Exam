@@ -7,8 +7,10 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
     {
         static void Main(string[] args)
         {
-
-            
+            Simulation sim = new Simulation();
+            sim.Start();
+            Console.ReadLine();
+           
         }
     }
 }
