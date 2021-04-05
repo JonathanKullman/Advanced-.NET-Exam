@@ -10,5 +10,5 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         public int HamsterId { get; set; }
         public virtual Hamster Hamster { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
-    }
+    }   
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Tenta_Advnet_Jonathan_Kullman_2
 {
@@ -6,7 +7,8 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            
         }
     }
 }
