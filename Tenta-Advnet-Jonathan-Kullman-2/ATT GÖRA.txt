@@ -1,6 +1,21 @@
 ﻿Fråga om hjälp och byta ut static-fälten. !!!!!!!!!!!##DONE##!!!!!!!!!!
 
-Första metoden: lägga in hamstrar i cage-buddies med rätt kön-fördelning.
+Första metoden: lägga in hamstrar i cage-buddies med rätt kön-fördelning.!!!!!!!!!!!##DONE##!!!!!!!!!!
 
 
-Skapa en ny assembly för FRONTEND.
+
+
+
+--------------------------------------ONSDAG NEDAN------------------------------------------------------------
+
+Fixa med Activity och loggern (Allt som skrivs ut på skärmen ska hämtas härifrån(Loggern)).
+
+Tänka ut hur Dailyrapooroten och varje tick ska se ut, utskriftsmässigt.
+
+Flytta hamstrar från Cage till ExerciseArea och tvärtom.
+
+Skapa en ny assembly för FRONTEND ((Allt ska skrivas ut här)).
+
+Lämpliga asyncs och Tasks.
+
+Kolla över Inkapslingen och förbättra denna.
