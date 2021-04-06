@@ -8,8 +8,15 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
 {
     public class Time
     {
-        public DateTime StartTime { get; set; }
-        public DateTime CurrentTime { get; set; }
+        private Ticker ticker;
+
+        public Time()
+        {
+            this.ticker = Ticker.GetInstance();
+        }
+    
+        public  DateTime StartTime { get; set; }
+        public  DateTime CurrentTime { get; set; }
         public DateTime CalculateStartTime(int month, int day)
         {
             DateTime timeStamp = new DateTime(2021, month, day, 7, 0, 0);
@@ -18,7 +25,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         }
         public void OnCalculateCurrentTime(object sender, EventArgs e)
         {
-            int timeToAdd = Ticker.Tick * 6;
+            int timeToAdd = ticker.tick * 6;
             DateTime timeStamp = StartTime.AddMinutes(timeToAdd);
             CurrentTime = timeStamp;
         }

@@ -14,8 +14,8 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         public Gender Gender { get; set; }
         public int? ActivityId { get; set; }
         public virtual Activity Activity { get; set; }
-        public int? CageBuddiesId { get; set; }
-        public virtual CageBuddies CageBuddies { get; set; }
+        public int? CageId { get; set; }
+        public virtual Cage Cage { get; set; }
         public DateTime? CheckInTime { get; set; }
         public DateTime? TimeOfLastExercise { get; set; }
         public virtual ICollection<Logger_Activities> Logger_Activities { get; set; }

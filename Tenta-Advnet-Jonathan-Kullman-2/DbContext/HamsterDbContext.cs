@@ -10,13 +10,13 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
 {
     public class HamsterDbContext : DbContext
     {
-        DbSet<Hamster> Hamsters { get; set; }
-        DbSet<Cage> Cages { get; set; }
-        DbSet<CageBuddies> Cagebuds { get; set; }
-        DbSet<ExerciseArea> ExerciseAreas { get; set; }
-        DbSet<Logger_Activities> Logger_Activities { get; set; }
-        DbSet<Activity> Activities { get; set; }
-        DbSet<Owner> Owners { get; set; }
+        internal DbSet<Hamster> Hamsters { get; set; }
+        internal DbSet<Cage> Cages { get; set; }
+        internal DbSet<Cage> Cagebuds { get; set; }
+        internal DbSet<ExerciseArea> ExerciseAreas { get; set; }
+        internal DbSet<Logger_Activities> Logger_Activities { get; set; }
+        internal DbSet<Activity> Activities { get; set; }
+        internal DbSet<Owner> Owners { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -56,6 +56,19 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                     new Owner { Id = 25, Name = "Lennart Berg" },
                     new Owner { Id = 26, Name = "Bo Bergman" }
                     );
+
+            modelBuilder.Entity<Cage>().HasData(
+                new Cage { Id = 1 },
+                new Cage { Id = 2 },
+                new Cage { Id = 3 },
+                new Cage { Id = 4 },
+                new Cage { Id = 5 },
+                new Cage { Id = 6 },
+                new Cage { Id = 7 },
+                new Cage { Id = 8 },
+                new Cage { Id = 9 },
+                new Cage { Id = 10 }
+                );
 
             string[] csvLines = File.ReadAllLines(@"C:\Users\jonte\source\repos\Tenta-Advnet-Jonathan-Kullman-2\Tenta-Advnet-Jonathan-Kullman-2\CSV FILE\Hamsterlista30.csv");
 

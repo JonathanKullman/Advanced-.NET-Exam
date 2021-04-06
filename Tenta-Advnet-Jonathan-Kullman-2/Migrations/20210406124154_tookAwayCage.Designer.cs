@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tenta_Advnet_Jonathan_Kullman_2;
 
 namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 {
     [DbContext(typeof(HamsterDbContext))]
-    partial class HamsterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210406124154_tookAwayCage")]
+    partial class tookAwayCage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,7 +134,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CageId")
+                    b.Property<int?>("CageBuddiesId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CheckInTime")
@@ -154,7 +156,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 
                     b.HasIndex("ActivityId");
 
-                    b.HasIndex("CageId");
+                    b.HasIndex("CageBuddiesId");
 
                     b.HasIndex("OwnerId");
 
@@ -581,9 +583,9 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         .WithMany("Hamsters")
                         .HasForeignKey("ActivityId");
 
-                    b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Cage", "Cage")
+                    b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Cage", "CageBuddies")
                         .WithMany()
-                        .HasForeignKey("CageId");
+                        .HasForeignKey("CageBuddiesId");
 
                     b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Owner", "Owner")
                         .WithMany("Hamsters")
@@ -593,7 +595,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 
                     b.Navigation("Activity");
 
-                    b.Navigation("Cage");
+                    b.Navigation("CageBuddies");
 
                     b.Navigation("Owner");
                 });
