@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Tenta_Advnet_Jonathan_Kullman_2
 {
-    public class Logger_Activities
+    public class Logger
     {
         public int Id { get; set; }
         public DateTime TimeStamp { get; set; }

@@ -14,7 +14,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         internal DbSet<Cage> Cages { get; set; }
         internal DbSet<Cage> Cagebuds { get; set; }
         internal DbSet<ExerciseArea> ExerciseAreas { get; set; }
-        internal DbSet<Logger_Activities> Logger_Activities { get; set; }
+        internal DbSet<Logger> Logger_Activities { get; set; }
         internal DbSet<Activity> Activities { get; set; }
         internal DbSet<Owner> Owners { get; set; }
 
@@ -58,16 +58,20 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                     );
 
             modelBuilder.Entity<Cage>().HasData(
-                new Cage { Id = 1 },
-                new Cage { Id = 2 },
-                new Cage { Id = 3 },
-                new Cage { Id = 4 },
-                new Cage { Id = 5 },
-                new Cage { Id = 6 },
-                new Cage { Id = 7 },
-                new Cage { Id = 8 },
-                new Cage { Id = 9 },
-                new Cage { Id = 10 }
+                new Cage { Id = 1, Gender = Gender.Male },
+                new Cage { Id = 2, Gender = Gender.Male },
+                new Cage { Id = 3, Gender = Gender.Male },
+                new Cage { Id = 4, Gender = Gender.Male },
+                new Cage { Id = 5, Gender = Gender.Male },
+                new Cage { Id = 6, Gender = Gender.Female },
+                new Cage { Id = 7, Gender = Gender.Female },
+                new Cage { Id = 8, Gender = Gender.Female },
+                new Cage { Id = 9, Gender = Gender.Female },
+                new Cage { Id = 10, Gender = Gender.Female }
+                );
+
+            modelBuilder.Entity<ExerciseArea>().HasData(
+                new ExerciseArea { Id = 1 }              
                 );
 
             string[] csvLines = File.ReadAllLines(@"C:\Users\jonte\source\repos\Tenta-Advnet-Jonathan-Kullman-2\Tenta-Advnet-Jonathan-Kullman-2\CSV FILE\Hamsterlista30.csv");

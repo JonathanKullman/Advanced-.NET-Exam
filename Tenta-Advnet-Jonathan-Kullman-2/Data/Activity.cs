@@ -7,6 +7,6 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual ICollection<Hamster> Hamsters { get; set; }
-        public virtual ICollection<Logger_Activities> Logger_Activities { get; set; }
+        public virtual ICollection<Logger> Logger { get; set; }
     }
 }

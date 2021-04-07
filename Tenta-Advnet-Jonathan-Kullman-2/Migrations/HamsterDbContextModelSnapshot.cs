@@ -55,51 +55,61 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         new
                         {
                             Id = 1,
+                            Gender = 0,
                             MaxCapacity = 3
                         },
                         new
                         {
                             Id = 2,
+                            Gender = 0,
                             MaxCapacity = 3
                         },
                         new
                         {
                             Id = 3,
+                            Gender = 0,
                             MaxCapacity = 3
                         },
                         new
                         {
                             Id = 4,
+                            Gender = 0,
                             MaxCapacity = 3
                         },
                         new
                         {
                             Id = 5,
+                            Gender = 0,
                             MaxCapacity = 3
                         },
                         new
                         {
                             Id = 6,
+                            Gender = 1,
                             MaxCapacity = 3
                         },
                         new
                         {
                             Id = 7,
+                            Gender = 1,
                             MaxCapacity = 3
                         },
                         new
                         {
                             Id = 8,
+                            Gender = 1,
                             MaxCapacity = 3
                         },
                         new
                         {
                             Id = 9,
+                            Gender = 1,
                             MaxCapacity = 3
                         },
                         new
                         {
                             Id = 10,
+                            Gender = 1,
                             MaxCapacity = 3
                         });
                 });
@@ -111,12 +121,22 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
+
                     b.Property<int>("MaxCapacity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("ExerciseAreas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MaxCapacity = 6
+                        });
                 });
 
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Hamster", b =>
@@ -138,11 +158,20 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                     b.Property<DateTime?>("CheckInTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CurrentActivity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ExerciseAreaId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OldCageId")
+                        .HasColumnType("int");
 
                     b.Property<int>("OwnerId")
                         .HasColumnType("int");
@@ -155,6 +184,8 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                     b.HasIndex("ActivityId");
 
                     b.HasIndex("CageId");
+
+                    b.HasIndex("ExerciseAreaId");
 
                     b.HasIndex("OwnerId");
 
@@ -403,7 +434,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Logger_Activities", b =>
+            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Logger", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -585,6 +616,10 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         .WithMany()
                         .HasForeignKey("CageId");
 
+                    b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.ExerciseArea", "ExerciseArea")
+                        .WithMany()
+                        .HasForeignKey("ExerciseAreaId");
+
                     b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Owner", "Owner")
                         .WithMany("Hamsters")
                         .HasForeignKey("OwnerId")
@@ -595,17 +630,19 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 
                     b.Navigation("Cage");
 
+                    b.Navigation("ExerciseArea");
+
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Logger_Activities", b =>
+            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Logger", b =>
                 {
                     b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Activity", "Activity")
-                        .WithMany("Logger_Activities")
+                        .WithMany("Logger")
                         .HasForeignKey("ActivityId");
 
                     b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Hamster", "Hamster")
-                        .WithMany("Logger_Activities")
+                        .WithMany("Logger")
                         .HasForeignKey("HamsterId");
 
                     b.Navigation("Activity");
@@ -617,12 +654,12 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                 {
                     b.Navigation("Hamsters");
 
-                    b.Navigation("Logger_Activities");
+                    b.Navigation("Logger");
                 });
 
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Hamster", b =>
                 {
-                    b.Navigation("Logger_Activities");
+                    b.Navigation("Logger");
                 });
 
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Owner", b =>

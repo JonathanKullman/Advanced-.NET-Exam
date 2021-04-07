@@ -10,8 +10,8 @@ using Tenta_Advnet_Jonathan_Kullman_2;
 namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 {
     [DbContext(typeof(HamsterDbContext))]
-    [Migration("20210405120126_data")]
-    partial class data
+    [Migration("20210407170043_addedGenderToCages_initial")]
+    partial class addedGenderToCages_initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,15 +28,10 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Logger_ActivitiesId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Logger_ActivitiesId");
 
                     b.ToTable("Activities");
                 });
@@ -48,24 +43,6 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cages");
-                });
-
-            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.CageBuddies", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CageId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("Gender")
                         .HasColumnType("int");
 
@@ -74,9 +51,69 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CageId");
+                    b.ToTable("Cage");
 
-                    b.ToTable("Cagebuds");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Gender = 0,
+                            MaxCapacity = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Gender = 0,
+                            MaxCapacity = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Gender = 0,
+                            MaxCapacity = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Gender = 0,
+                            MaxCapacity = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Gender = 0,
+                            MaxCapacity = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Gender = 1,
+                            MaxCapacity = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Gender = 1,
+                            MaxCapacity = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Gender = 1,
+                            MaxCapacity = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Gender = 1,
+                            MaxCapacity = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Gender = 1,
+                            MaxCapacity = 3
+                        });
                 });
 
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.ExerciseArea", b =>
@@ -86,12 +123,22 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
+
                     b.Property<int>("MaxCapacity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("ExerciseAreas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MaxCapacity = 6
+                        });
                 });
 
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Hamster", b =>
@@ -107,17 +154,26 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CageBuddiesId")
+                    b.Property<int?>("CageId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CheckInTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("CurrentActivity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ExerciseAreaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OldCageId")
+                        .HasColumnType("int");
 
                     b.Property<int>("OwnerId")
                         .HasColumnType("int");
@@ -129,7 +185,9 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 
                     b.HasIndex("ActivityId");
 
-                    b.HasIndex("CageBuddiesId");
+                    b.HasIndex("CageId");
+
+                    b.HasIndex("ExerciseAreaId");
 
                     b.HasIndex("OwnerId");
 
@@ -220,7 +278,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         {
                             Id = 11,
                             Age = 4,
-                            Gender = 1,
+                            Gender = 0,
                             Name = "Starlight",
                             OwnerId = 7
                         },
@@ -378,20 +436,25 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Logger_Activities", b =>
+            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Logger", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("HamsterId")
+                    b.Property<int?>("ActivityId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HamsterId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
 
                     b.HasIndex("HamsterId");
 
@@ -545,37 +608,19 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Activity", b =>
-                {
-                    b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Logger_Activities", "Logger_Activities")
-                        .WithMany("Activities")
-                        .HasForeignKey("Logger_ActivitiesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Logger_Activities");
-                });
-
-            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.CageBuddies", b =>
-                {
-                    b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Cage", "Cage")
-                        .WithMany()
-                        .HasForeignKey("CageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cage");
-                });
-
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Hamster", b =>
                 {
                     b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Activity", "Activity")
-                        .WithMany()
+                        .WithMany("Hamsters")
                         .HasForeignKey("ActivityId");
 
-                    b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.CageBuddies", "CageBuddies")
+                    b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Cage", "Cage")
                         .WithMany()
-                        .HasForeignKey("CageBuddiesId");
+                        .HasForeignKey("CageId");
+
+                    b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.ExerciseArea", "ExerciseArea")
+                        .WithMany()
+                        .HasForeignKey("ExerciseAreaId");
 
                     b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Owner", "Owner")
                         .WithMany("Hamsters")
@@ -585,30 +630,38 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 
                     b.Navigation("Activity");
 
-                    b.Navigation("CageBuddies");
+                    b.Navigation("Cage");
+
+                    b.Navigation("ExerciseArea");
 
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Logger_Activities", b =>
+            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Logger", b =>
                 {
+                    b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Activity", "Activity")
+                        .WithMany("Logger")
+                        .HasForeignKey("ActivityId");
+
                     b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.Hamster", "Hamster")
-                        .WithMany("Logger_Activities")
-                        .HasForeignKey("HamsterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Logger")
+                        .HasForeignKey("HamsterId");
+
+                    b.Navigation("Activity");
 
                     b.Navigation("Hamster");
                 });
 
-            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Hamster", b =>
+            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Activity", b =>
                 {
-                    b.Navigation("Logger_Activities");
+                    b.Navigation("Hamsters");
+
+                    b.Navigation("Logger");
                 });
 
-            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Logger_Activities", b =>
+            modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Hamster", b =>
                 {
-                    b.Navigation("Activities");
+                    b.Navigation("Logger");
                 });
 
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Owner", b =>

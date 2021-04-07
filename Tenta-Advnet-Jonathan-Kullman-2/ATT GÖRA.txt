@@ -1,18 +1,22 @@
-﻿Fråga om hjälp och byta ut static-fälten. !!!!!!!!!!!##DONE##!!!!!!!!!!
+﻿
+-----------------------------------------DONE-----------------------------------------------------
+
+
+Fråga om hjälp och byta ut static-fälten. !!!!!!!!!!!##DONE##!!!!!!!!!!
 
 Första metoden: lägga in hamstrar i cage-buddies med rätt kön-fördelning.!!!!!!!!!!!##DONE##!!!!!!!!!!
 
+Flytta hamstrar från Cage till ExerciseArea och tvärtom. !!!!!!!!!!!##DONE##!!!!!!!!!!
 
 
 
+--------------------------------------INTE KLART------------------------------------------------------------
 
---------------------------------------ONSDAG NEDAN------------------------------------------------------------
+Fixa klockan "16:54 till 17:00" och Tick från "99" till "100".
 
 Fixa med Activity och loggern (Allt som skrivs ut på skärmen ska hämtas härifrån(Loggern)).
 
 Tänka ut hur Dailyrapooroten och varje tick ska se ut, utskriftsmässigt.
-
-Flytta hamstrar från Cage till ExerciseArea och tvärtom.
 
 Skapa en ny assembly för FRONTEND ((Allt ska skrivas ut här)).
 

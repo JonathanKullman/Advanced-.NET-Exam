@@ -15,6 +15,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         private Time time;
         private HamsterDbContext hdb;
 
+        private int tickMultiplier;
         private int month;
         private int day;
         internal static int remainingDaysToSimulate;
@@ -37,8 +38,13 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
             #region Subscribers
 
             StartClock += StartTicker;
+
             ticker.Tiktok += time.OnCalculateCurrentTime;
             ticker.Tiktok += Testshit;
+            ticker.Tiktok += ChangeGenderOnExArea;
+            ticker.Tiktok += MoveToExerciseArea;
+            ticker.Tiktok += MoveToCageFromExArea;
+
 
             #endregion Subscribers
 
@@ -59,6 +65,121 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
 
         }
 
+        private void MoveToCageFromExArea(object sender, EventArgs e)
+        {
+            if (ticker.tick == 9 || ticker.tick == 9 + tickMultiplier)
+            {
+                tickMultiplier += 10;
+
+                var cage = hdb.Cages.ToArray();
+                var exArea = hdb.ExerciseAreas.ToArray().First();
+                var hamList = exArea.hamsterList.ToList();
+                var hamsters = new List<Hamster>();
+
+                foreach (var hamster in hamList)
+                {
+                    hamsters.Add(hamster);
+                    exArea.hamsterList.Remove(hamster);
+                    hamster.TimeOfLastExercise = time.CurrentTime;
+                    
+                    for (int i = 0; i < cage.Length; i++)
+                    {
+
+                        if (cage[i].Id == hamster.OldCageId)
+                        {
+                            cage[i].hamsterList.Add(hamster);
+                            hamster.CageId = cage[i].Id;
+                            hamster.OldCageId = null;
+                            hamster.CurrentActivity = "In cage";
+                            hamster.ExerciseAreaId = null;
+
+                        }
+
+                    }
+                    hdb.SaveChanges();
+                }
+
+
+
+   
+            }
+        }
+
+        private void ChangeGenderOnExArea(object sender, EventArgs e)
+        {
+            var exArea = hdb.ExerciseAreas.ToArray().First();
+
+            if (ticker.tick == 0 || ticker.tick == 60)
+            {
+                exArea.Gender = Gender.Male;
+            }
+            else if (ticker.tick == 30 || ticker.tick == 90)
+            {
+                exArea.Gender = Gender.Female;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void MoveToExerciseArea(object sender, EventArgs e)
+        {
+            var hamsters = new List<Hamster>();
+            var exArea = hdb.ExerciseAreas.ToArray().First();
+            var cage = hdb.Cages.ToArray();
+
+            foreach (var item in hdb.Cages)
+            {
+                for (int i = 0; i < item.hamsterList.Count; i++)
+                {
+                    hamsters.Add(item.hamsterList[i]);
+                }
+            }
+             
+            var orderedHamsters = hamsters.Select(c => c).OrderBy(c => c.TimeOfLastExercise).ToList();
+
+            for (int i = 0; i < orderedHamsters.Count; i++)
+            {
+                if (!exArea.IsFull)
+                {
+                    if (exArea.Gender == Gender.Male && orderedHamsters[i].Gender == Gender.Male)
+                    {
+                        exArea.hamsterList.Add(orderedHamsters[i]);
+                        orderedHamsters[i].OldCageId = orderedHamsters[i].CageId;
+                        orderedHamsters[i].CageId = null;
+                        orderedHamsters[i].CurrentActivity = "Exercising";
+                        orderedHamsters[i].ExerciseAreaId = 1;
+
+                        for (int j = 0; j < cage.Length; j++)
+                        {
+                            if (cage[j].hamsterList.Contains(orderedHamsters[i]))
+                            {
+                                cage[j].hamsterList.Remove(orderedHamsters[i]);
+                            }
+                        }
+                    }
+                    else if (exArea.Gender == Gender.Female && orderedHamsters[i].Gender == Gender.Female)
+                    {
+                        exArea.hamsterList.Add(orderedHamsters[i]);
+                        orderedHamsters[i].OldCageId = orderedHamsters[i].CageId;
+                        orderedHamsters[i].CageId = null;
+                        orderedHamsters[i].CurrentActivity = "Exercising";
+                        orderedHamsters[i].ExerciseAreaId = 1;
+
+                        for (int j = 0; j < cage.Length; j++)
+                        {
+                            if (cage[j].hamsterList.Contains(orderedHamsters[i]))
+                            {
+                                cage[j].hamsterList.Remove(orderedHamsters[i]);
+                            }
+                        }
+                    }
+                }
+                hdb.SaveChanges();
+            }
+          
+        }
 
         /// <summary>
         /// Info to print every tick
@@ -77,7 +198,6 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
 
 
         }
-
 
         /// <summary>
         /// Runs the event "ticking" which has numerous subs, asynchronously
@@ -127,7 +247,6 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
 
         }
 
-
         /// <summary>
         /// Adds all the 30 hamsters to their cages
         /// </summary>
@@ -135,8 +254,8 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         {
             int maleCounter = 0;
             int femaleCounter = 0;
-            int loopCounter = 0;
             int statsCounter = 0;
+            //string activity = "Check in";
 
             //Fills a list of all the hamsters stored in the database
             var filledListOfHamsters = hdb.Hamsters.ToList();
@@ -158,7 +277,8 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                     {
                         cage[i].hamsterList.Add(maleList[maleCounter]);
                         cage[i].hamsterList[statsCounter].CageId = cage[i].Id;
-                        cage[i].hamsterList[statsCounter].CheckInTime = time.StartTime;
+                        cage[i].hamsterList[statsCounter].CheckInTime = time.StartTime;                    
+                        cage[i].hamsterList[statsCounter].CurrentActivity = "In cage";                    
                         maleCounter++;
                         statsCounter++;
                     }
@@ -167,19 +287,21 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                         cage[i].hamsterList.Add(femaleList[femaleCounter]);
                         cage[i].hamsterList[statsCounter].CageId = cage[i].Id;
                         cage[i].hamsterList[statsCounter].CheckInTime = time.StartTime;
+                        cage[i].hamsterList[statsCounter].CurrentActivity = "In cage";
+
                         femaleCounter++;
                         statsCounter++;
                     }
 
                 }
                 statsCounter = 0;
+                hdb.SaveChanges();
             }
 
-            hdb.SaveChanges();
+            
 
-        }
+        } 
 
-       
         /// <summary>
         /// Removes all the hamsters every 100 Ticks from the cages (return to their home).
         /// </summary>
@@ -199,21 +321,28 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                     if (cage[i].Gender == Gender.Male)
                     {
                         cage[i].hamsterList[counter].CageId = null;
+                        cage[i].hamsterList[counter].OldCageId = null;
+                        cage[i].hamsterList[counter].ExerciseAreaId = null;
                         cage[i].hamsterList[counter].CheckInTime = null;
+                        cage[i].hamsterList[counter].CurrentActivity = "Home";    
+                        cage[i].hamsterList[counter].TimeOfLastExercise = null;                          
                         cage[i].hamsterList.Remove(cage[i].hamsterList[counter]);
                     }
                     else if (cage[i].Gender == Gender.Female)
                     {
                         cage[i].hamsterList[counter].CageId = null;
+                        cage[i].hamsterList[counter].OldCageId = null;
+                        cage[i].hamsterList[counter].ExerciseAreaId = null;
                         cage[i].hamsterList[counter].CheckInTime = null;
+                        cage[i].hamsterList[counter].CurrentActivity = "Home";
+                        cage[i].hamsterList[counter].TimeOfLastExercise = null;
                         cage[i].hamsterList.Remove(cage[i].hamsterList[counter]);
                     }
                 }
 
                 hdb.SaveChanges();
             }
-        }
-        
+        }     
         
         /// <summary>
         /// Builds the DailyReport-String and returns it.
@@ -226,7 +355,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
             {
                 sb.AppendLine($"\tName: {hamster.Name.PadLeft(5).PadRight(15)} " +
                $"| Gender: {hamster.OwnerId.ToString().PadLeft(2).PadRight(5)} | " +
-               $"Last exercise: {hamster.Id.ToString().PadLeft(5).PadRight(15)} | Activites: {hamster.CageId.ToString().PadLeft(5)}");
+               $"Last exercise: {hamster.Id.ToString().PadLeft(5).PadRight(15)}");
             }
             
           
