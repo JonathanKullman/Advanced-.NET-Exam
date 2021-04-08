@@ -8,11 +8,13 @@ Första metoden: lägga in hamstrar i cage-buddies med rätt kön-fördelning.!!
 
 Flytta hamstrar från Cage till ExerciseArea och tvärtom. !!!!!!!!!!!##DONE##!!!!!!!!!!
 
+Fixa klockan "16:54 till 17:00" och Tick från "99" till "100". !!!!!!!!!!!##DONE##!!!!!!!!!!
+
+
 
 
 --------------------------------------INTE KLART------------------------------------------------------------
 
-Fixa klockan "16:54 till 17:00" och Tick från "99" till "100".
 
 Fixa med Activity och loggern (Allt som skrivs ut på skärmen ska hämtas härifrån(Loggern)).
 

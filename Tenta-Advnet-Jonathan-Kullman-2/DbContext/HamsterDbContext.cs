@@ -12,9 +12,8 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
     {
         internal DbSet<Hamster> Hamsters { get; set; }
         internal DbSet<Cage> Cages { get; set; }
-        internal DbSet<Cage> Cagebuds { get; set; }
         internal DbSet<ExerciseArea> ExerciseAreas { get; set; }
-        internal DbSet<Logger> Logger_Activities { get; set; }
+        internal DbSet<ActivityLogger> ActivityLoggers { get; set; }
         internal DbSet<Activity> Activities { get; set; }
         internal DbSet<Owner> Owners { get; set; }
 

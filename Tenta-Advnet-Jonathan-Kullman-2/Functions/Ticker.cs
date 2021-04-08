@@ -19,7 +19,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
             Console.Clear();
             Tiktok?.Invoke(this, EventArgs.Empty);
             tick++;
-            await Task.Delay(30 * speed);
+            await Task.Delay(10 * speed);
         }
 
         public static Ticker GetInstance()

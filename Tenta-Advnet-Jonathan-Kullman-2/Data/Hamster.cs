@@ -13,8 +13,6 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         public virtual Owner Owner { get; set; }
         public Gender Gender { get; set; }
         public string CurrentActivity { get; set; }
-        public int? ActivityId { get; set; }
-        public virtual Activity Activity { get; set; }
         public int? CageId { get; set; }
         public virtual Cage Cage { get; set; }
         public int? ExerciseAreaId { get; set; }
@@ -22,6 +20,6 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         public int? OldCageId { get; set; }
         public DateTime? CheckInTime { get; set; }
         public DateTime? TimeOfLastExercise { get; set; }
-        public virtual ICollection<Logger> Logger { get; set; }
+        public virtual ICollection<ActivityLogger> ActivityLogger { get; set; }
     }
 }

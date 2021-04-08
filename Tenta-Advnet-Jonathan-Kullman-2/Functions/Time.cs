@@ -9,12 +9,14 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
     public class Time
     {
         private Ticker ticker;
+         
 
         public Time()
         {
             this.ticker = Ticker.GetInstance();
         }
-    
+
+        public string DateString { get => StartTime.ToShortDateString(); }
         public  DateTime StartTime { get; set; }
         public  DateTime CurrentTime { get; set; }
         public DateTime CalculateStartTime(int month, int day)

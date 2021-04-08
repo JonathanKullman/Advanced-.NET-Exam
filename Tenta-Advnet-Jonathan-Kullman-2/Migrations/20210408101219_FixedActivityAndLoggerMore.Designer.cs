@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tenta_Advnet_Jonathan_Kullman_2;
 
 namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 {
     [DbContext(typeof(HamsterDbContext))]
-    partial class HamsterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210408101219_FixedActivityAndLoggerMore")]
+    partial class FixedActivityAndLoggerMore
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,8 +54,8 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("HamsterId")
                         .HasColumnType("int");
@@ -62,7 +64,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 
                     b.HasIndex("HamsterId");
 
-                    b.ToTable("ActivityLoggers");
+                    b.ToTable("Logger_Activities");
                 });
 
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Cage", b =>
@@ -80,7 +82,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cages");
+                    b.ToTable("Cage");
 
                     b.HasData(
                         new
@@ -610,7 +612,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Activity", b =>
                 {
                     b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.ActivityLogger", "ActivityLogger")
-                        .WithMany("Activities")
+                        .WithMany("Activity")
                         .HasForeignKey("ActivityLoggerId");
 
                     b.Navigation("ActivityLogger");
@@ -650,7 +652,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.ActivityLogger", b =>
                 {
-                    b.Navigation("Activities");
+                    b.Navigation("Activity");
                 });
 
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Hamster", b =>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tenta_Advnet_Jonathan_Kullman_2;
 
 namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 {
     [DbContext(typeof(HamsterDbContext))]
-    partial class HamsterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210408133906_initnew")]
+    partial class initnew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -610,7 +612,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Activity", b =>
                 {
                     b.HasOne("Tenta_Advnet_Jonathan_Kullman_2.ActivityLogger", "ActivityLogger")
-                        .WithMany("Activities")
+                        .WithMany("Activity")
                         .HasForeignKey("ActivityLoggerId");
 
                     b.Navigation("ActivityLogger");
@@ -650,7 +652,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.ActivityLogger", b =>
                 {
-                    b.Navigation("Activities");
+                    b.Navigation("Activity");
                 });
 
             modelBuilder.Entity("Tenta_Advnet_Jonathan_Kullman_2.Hamster", b =>
