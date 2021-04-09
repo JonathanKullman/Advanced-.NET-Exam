@@ -10,18 +10,27 @@ Flytta hamstrar från Cage till ExerciseArea och tvärtom. !!!!!!!!!!!##DONE##!!
 
 Fixa klockan "16:54 till 17:00" och Tick från "99" till "100". !!!!!!!!!!!##DONE##!!!!!!!!!!
 
+Lämpliga asyncs och Tasks. !!!!!!!!!!!##DONE##!!!!!!!!!!
+
+Fixa med Activity och loggern (). !!!!!!!!!!!##DONE##!!!!!!!!!!
+
+
+
 
 
 
 --------------------------------------INTE KLART------------------------------------------------------------
 
 
-Fixa med Activity och loggern (Allt som skrivs ut på skärmen ska hämtas härifrån(Loggern)).
 
 Tänka ut hur Dailyrapooroten och varje tick ska se ut, utskriftsmässigt.
 
 Skapa en ny assembly för FRONTEND ((Allt ska skrivas ut här)).
 
-Lämpliga asyncs och Tasks.
+CSV Filen när man skickar till paul
 
-Kolla över Inkapslingen och förbättra denna.
+Kolla över Inkapslingen och förbättra denna. 
+
+Kunna pausa programmet.
+
+skripta databasen i SSMS.

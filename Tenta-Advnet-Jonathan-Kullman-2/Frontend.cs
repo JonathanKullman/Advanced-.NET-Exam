@@ -8,6 +8,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
 {
     class Frontend
     {
+  
         public int GetMonth()
         {
             Console.Clear();
@@ -26,7 +27,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
             return day;
         }
 
-        internal int GetAmountOfDays()
+        public int GetAmountOfDays()
         {
             Console.WriteLine("How many days do you wish to simulate?");
             int userInput = int.Parse(Console.ReadLine());
@@ -34,7 +35,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
             return userInput;
         }
 
-        internal int GetSpeed()
+        public int GetSpeed()
         {
             Console.WriteLine("[5 = 0,5 sec, 10 = 1 sec, 20 = 2 sec] etc...");
             Console.WriteLine("How fast do you want the program to run? 1 - 50");
@@ -42,11 +43,15 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
             return speed;
         }
 
-        internal async Task PrintDailyReport(string report)
+        public async Task PrintOutDailyReport(string dailyReport)
         {
-            Console.WriteLine(report.ToString());
+            Console.WriteLine(dailyReport.ToString());
             await Task.Delay(3000);
 
+        }
+        public void PrintOutTicklyReport(string ticklyReport)
+        {
+            Console.WriteLine(ticklyReport);
         }
     }
 }

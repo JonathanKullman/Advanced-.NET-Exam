@@ -17,7 +17,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         public async Task Ticking(int speed)
         {
             Console.Clear();
-            Tiktok?.Invoke(this, EventArgs.Empty);
+            await Task.Run(() => Tiktok?.Invoke(this, EventArgs.Empty));
             tick++;
             await Task.Delay(10 * speed);
         }
