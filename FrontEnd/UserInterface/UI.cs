@@ -141,12 +141,22 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
             return speed;
         }
 
+        /// <summary>
+        /// Prints the daily report on screen
+        /// </summary>
+        /// <param name="dailyReport"></param>
+        /// <returns></returns>
         public async Task PrintOutDailyReport(string dailyReport)
         {
             Console.WriteLine(dailyReport.ToString());
-            await Task.Delay(3000);
+            await Task.Delay(5000);
 
         }
+        
+        /// <summary>
+        /// Prints the daily report on screen
+        /// </summary>
+        /// <param name="ticklyReport"></param>
         public void PrintOutTicklyReport(string ticklyReport)
         {
             Console.WriteLine(ticklyReport);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Tenta_Advnet_Jonathan_Kullman_2
 {
-    public class HamsterDbContext : DbContext
+    internal class HamsterDbContext : DbContext
     {
         internal DbSet<Hamster> Hamsters { get; set; }
         internal DbSet<Cage> Cages { get; set; }

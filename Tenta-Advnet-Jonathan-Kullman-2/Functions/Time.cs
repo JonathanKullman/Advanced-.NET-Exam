@@ -6,26 +6,25 @@ using System.Threading.Tasks;
 
 namespace Tenta_Advnet_Jonathan_Kullman_2
 {
-    public class Time
+    internal class Time
     {
         private Ticker ticker;
          
-
-        public Time()
+        internal Time()
         {
             this.ticker = Ticker.GetInstance();
         }
 
-        public string DateString { get => StartTime.ToShortDateString(); }
-        public  DateTime StartTime { get; set; }
-        public  DateTime CurrentTime { get; set; }
-        public DateTime CalculateStartTime(int month, int day)
+        internal string DateString { get => StartTime.ToShortDateString(); }
+        internal  DateTime StartTime { get; set; }
+        internal  DateTime CurrentTime { get; set; }
+        internal DateTime CalculateStartTime(int month, int day)
         {
             DateTime timeStamp = new DateTime(2021, month, day, 7, 0, 0);
             StartTime = timeStamp;
             return timeStamp;
         }
-        public void OnCalculateCurrentTime(object sender, EventArgs e)
+        internal void OnCalculateCurrentTime(object sender, EventArgs e)
         {
             int timeToAdd = ticker.tick * 6;
             DateTime timeStamp = StartTime.AddMinutes(timeToAdd);

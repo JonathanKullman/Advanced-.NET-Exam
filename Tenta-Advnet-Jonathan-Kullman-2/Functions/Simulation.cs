@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tenta_Advnet_Jonathan_Kullman_2
 {
-    public class Simulation
+    internal class Simulation
     {
         private EventHandler StartClock;
 
@@ -23,7 +23,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         private int daysToSimulate;
         private int speed;
 
-        public Simulation()
+        internal Simulation()
         {
             ticker = Ticker.GetInstance();
             time = new Time();
@@ -35,7 +35,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         /// <summary>
         /// Method: Runs when the program starts.
         /// </summary>
-        public async Task Start()
+        internal async Task Start()
         {
             #region Subscribers
             StartClock += StartTicker;
@@ -603,7 +603,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                 var actCount = hamster.ActivityLogger
                     .Select(c => c)
                     .Where(c => c.Hamster == hamster)
-                    .ToList().OrderBy(c => c)
+                    .ToList().OrderBy(c => c.Date)
                     .Last().Activities
                     .Where(c => c.ActivityType == Activities.Exercise)
                     .Count()
