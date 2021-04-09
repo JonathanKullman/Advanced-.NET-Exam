@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tenta_Advnet_Jonathan_Kullman_2
 {
-    class Frontend
+    public class UI
     {
   
         public int GetMonth()

@@ -12,7 +12,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         private EventHandler StartClock;
 
         private Ticker ticker;
-        private Frontend frontend;
+        private UI uI;
         private Time time;
         private HamsterDbContext hdb;
 
@@ -27,7 +27,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         {
             ticker = Ticker.GetInstance();
             time = new Time();
-            frontend = new Frontend();
+            uI = new UI();
             hdb = new HamsterDbContext();
         }
 
@@ -50,11 +50,11 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
             #endregion Subscribers
 
             //Asking user for month and day, and days to simulate
-            daysToSimulate = frontend.GetAmountOfDays();
-            speed = frontend.GetSpeed();
+            daysToSimulate = uI.GetAmountOfDays();
+            speed = uI.GetSpeed();
             remainingDaysToSimulate = daysToSimulate;
-            month = frontend.GetMonth();
-            day = frontend.GetDay();
+            month = uI.GetMonth();
+            day = uI.GetDay();
 
 
             //Methods
@@ -80,7 +80,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                 {
 
                     string dailyReport = await Task.Run(() => DailyReport());
-                    await Task.Run(() => frontend.PrintOutDailyReport(dailyReport));
+                    await Task.Run(() => uI.PrintOutDailyReport(dailyReport));
 
                     remainingDaysToSimulate--;
                     ticker.tick = 0;
@@ -98,7 +98,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                 {
 
                     string dailyReport = await Task.Run(() => DailyReport());
-                    await Task.Run(() => frontend.PrintOutDailyReport(dailyReport));
+                    await Task.Run(() => uI.PrintOutDailyReport(dailyReport));
                     await Task.Run(() => RemoveHamsters());
 
                     break;
@@ -571,10 +571,9 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
             sb.AppendLine($"Amount Of Hamsters and Current Gender Exercising : {AmountOfHamsInExerciseArea} {gender}s");
 
             string tickReport = sb.ToString();
-            await Task.Run(() => frontend.PrintOutDailyReport(tickReport));
+            await Task.Run(() => uI.PrintOutDailyReport(tickReport));
 
         }
-
 
         /// <summary>
         /// Builds the DailyReport-String and returns it.
