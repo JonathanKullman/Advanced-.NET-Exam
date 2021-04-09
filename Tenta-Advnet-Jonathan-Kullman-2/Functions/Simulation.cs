@@ -581,15 +581,51 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         /// <returns></returns>
         private string DailyReport()
         {
+            Console.Clear();
+
             StringBuilder sb = new StringBuilder();
             foreach (var hamster in hdb.Hamsters)
             {
-                sb.AppendLine($"\tName: {hamster.Name.PadLeft(5).PadRight(15)} " +
-               $"| Gender: {hamster.OwnerId.ToString().PadLeft(2).PadRight(5)} | " +
-               $"Last exercise: {hamster.Id.ToString().PadLeft(5).PadRight(15)}");
+
+                var timeWaited = hamster.ActivityLogger
+                    .Select(c => c)
+                    .OrderBy(c => c.Date)
+                    .Last().Activities
+                    .Select(c => c)
+                    .Where(c => c.ActivityType == Activities.CheckIn)
+                    .First()
+                    .TotalDuration;
+
+
+                string formattedTimeWaited = string.Format("{0:hh} Hours", timeWaited);
+
+
+                var actCount = hamster.ActivityLogger
+                    .Select(c => c)
+                    .Where(c => c.Hamster == hamster)
+                    .ToList().OrderBy(c => c)
+                    .Last().Activities
+                    .Where(c => c.ActivityType == Activities.Exercise)
+                    .Count()
+                    .ToString();
+
+                if (hamster.Gender == Gender.Male)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                }
+
+                else if (hamster.Gender == Gender.Female)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                }
+
+                sb.AppendLine($"\t    Name: {hamster.Name.PadLeft(5).PadRight(15)} " +
+                             $"|Wait for Exercise: {formattedTimeWaited.PadLeft(5).PadRight(15)} " +
+                             $"|Amount of Exercises: {actCount.ToString()} ");
+
+                Console.ResetColor();
+
             }
-
-
             return sb.ToString();
         }
     }
