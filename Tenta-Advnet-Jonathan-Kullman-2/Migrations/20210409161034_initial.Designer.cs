@@ -10,7 +10,7 @@ using Tenta_Advnet_Jonathan_Kullman_2;
 namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 {
     [DbContext(typeof(HamsterDbContext))]
-    [Migration("20210409160208_initial")]
+    [Migration("20210409161034_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
