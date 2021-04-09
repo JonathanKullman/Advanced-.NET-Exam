@@ -32,6 +32,13 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                     Console.WriteLine("Press ENTER to try again...");
                     Console.ReadLine();
                 }
+                else if (month > 12)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Only a number between [1 - 12] is a valid input!");
+                    Console.WriteLine("Press ENTER to try again...");
+                    Console.ReadLine();
+                }
                 else
                 {
                     validInput = true;
@@ -63,6 +70,13 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                 {
                     Console.Clear();
                     Console.WriteLine("Only a number is a valid input!");
+                    Console.WriteLine("Press ENTER to try again...");
+                    Console.ReadLine();
+                }
+                else if (day > 31)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Only a number between [1 - 31] is a valid input!");
                     Console.WriteLine("Press ENTER to try again...");
                     Console.ReadLine();
                 }
@@ -121,7 +135,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
             {
                 Console.Clear();
                 Console.WriteLine("Set the speed for the simulation.");
-                Console.Write("|1 = 100ms| : ");
+                Console.Write("|1 = 500ms| : ");
                 bool checkInput = int.TryParse(Console.ReadLine(), out speed);
 
                 if (!checkInput)
@@ -149,7 +163,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
         public async Task PrintOutDailyReport(string dailyReport)
         {
             Console.WriteLine(dailyReport.ToString());
-            await Task.Delay(5000);
+            await Task.Delay(12000);
 
         }
         

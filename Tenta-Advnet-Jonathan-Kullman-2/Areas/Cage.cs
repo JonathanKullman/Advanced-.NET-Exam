@@ -2,18 +2,18 @@
 
 namespace Tenta_Advnet_Jonathan_Kullman_2
 {
-    internal class Cage
+    public class Cage
     {
-        internal Cage()
+        public Cage()
         {
             MaxCapacity = 3;
             hamsterList = new List<Hamster>();  
         }
-        internal List<Hamster> hamsterList;
-        internal int Id { get; set; }
-        internal int MaxCapacity { get; private set; }
-        internal bool IsFull { get => MaxCapacity - hamsterList.Count <= 0; }
-        internal Gender? Gender { get; set; }
+        public List<Hamster> hamsterList;
+        public int Id { get; set; }
+        public int MaxCapacity { get; private set; }
+        public bool IsFull { get => MaxCapacity - hamsterList.Count <= 0; }
+        public Gender? Gender { get; set; }
         
 
     }

@@ -619,8 +619,8 @@ namespace Tenta_Advnet_Jonathan_Kullman_2
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                 }
 
-                sb.AppendLine($"\t    Name: {hamster.Name.PadLeft(5).PadRight(15)} " +
-                             $"|Wait for Exercise: {formattedTimeWaited.PadLeft(5).PadRight(15)} " +
+                sb.AppendLine($"\t  Name: {hamster.Name.PadLeft(5).PadRight(15)} " +
+                             $"|Waited for 1st Exercise: {formattedTimeWaited.PadLeft(5).PadRight(15)} " +
                              $"|Amount of Exercises: {actCount.ToString()} ");
 
                 Console.ResetColor();

@@ -2,10 +2,10 @@
 
 namespace Tenta_Advnet_Jonathan_Kullman_2
 {
-    internal class Owner
+    public class Owner
     {
-        internal int Id { get; set; }
-        internal string Name { get; set; }
-        internal virtual ICollection<Hamster> Hamsters { get; set; } 
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<Hamster> Hamsters { get; set; } 
     } 
 }

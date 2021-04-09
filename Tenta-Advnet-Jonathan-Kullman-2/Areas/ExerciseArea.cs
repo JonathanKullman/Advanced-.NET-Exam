@@ -2,18 +2,17 @@
 
 namespace Tenta_Advnet_Jonathan_Kullman_2
 {
-    internal class ExerciseArea
+    public class ExerciseArea
     {
-        internal List<Hamster> hamsterList;
-        internal ExerciseArea()
+        public List<Hamster> hamsterList;
+        public ExerciseArea()
         {
             MaxCapacity = 6;
             hamsterList = new List<Hamster>();
         }
-        internal int Id { get; set; }
-        internal int MaxCapacity { get; private set; }
-        internal bool IsFull { get => MaxCapacity - hamsterList.Count <= 0; }
-
-        internal Gender? Gender { get; set; }
+        public int Id { get; set; }
+        public int MaxCapacity { get; private set; }
+        public bool IsFull { get => MaxCapacity - hamsterList.Count <= 0; }
+        public Gender? Gender { get; set; }
     }   
 }
