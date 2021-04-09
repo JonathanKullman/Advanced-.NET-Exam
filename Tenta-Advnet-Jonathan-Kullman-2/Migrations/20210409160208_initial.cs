@@ -3,25 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 {
-    public partial class addedGenderToCages_initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Activities",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Activities", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cage",
+                name: "Cages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -31,7 +18,7 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cage", x => x.Id);
+                    table.PrimaryKey("PK_Cages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,7 +59,6 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                     OwnerId = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     CurrentActivity = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ActivityId = table.Column<int>(type: "int", nullable: true),
                     CageId = table.Column<int>(type: "int", nullable: true),
                     ExerciseAreaId = table.Column<int>(type: "int", nullable: true),
                     OldCageId = table.Column<int>(type: "int", nullable: true),
@@ -83,15 +69,9 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                 {
                     table.PrimaryKey("PK_Hamsters", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Hamsters_Activities_ActivityId",
-                        column: x => x.ActivityId,
-                        principalTable: "Activities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Hamsters_Cage_CageId",
+                        name: "FK_Hamsters_Cages_CageId",
                         column: x => x.CageId,
-                        principalTable: "Cage",
+                        principalTable: "Cages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -109,34 +89,49 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Logger_Activities",
+                name: "ActivityLoggers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    HamsterId = table.Column<int>(type: "int", nullable: true),
-                    ActivityId = table.Column<int>(type: "int", nullable: true)
+                    Date = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HamsterId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Logger_Activities", x => x.Id);
+                    table.PrimaryKey("PK_ActivityLoggers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Logger_Activities_Activities_ActivityId",
-                        column: x => x.ActivityId,
-                        principalTable: "Activities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Logger_Activities_Hamsters_HamsterId",
+                        name: "FK_ActivityLoggers_Hamsters_HamsterId",
                         column: x => x.HamsterId,
                         principalTable: "Hamsters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Activities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ActivityType = table.Column<int>(type: "int", nullable: false),
+                    TimeOfStart = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TimeOfEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ActivityLoggerId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Activities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Activities_ActivityLoggers_ActivityLoggerId",
+                        column: x => x.ActivityLoggerId,
+                        principalTable: "ActivityLoggers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
-                table: "Cage",
+                table: "Cages",
                 columns: new[] { "Id", "Gender", "MaxCapacity" },
                 values: new object[,]
                 {
@@ -192,45 +187,50 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
 
             migrationBuilder.InsertData(
                 table: "Hamsters",
-                columns: new[] { "Id", "ActivityId", "Age", "CageId", "CheckInTime", "CurrentActivity", "ExerciseAreaId", "Gender", "Name", "OldCageId", "OwnerId", "TimeOfLastExercise" },
+                columns: new[] { "Id", "Age", "CageId", "CheckInTime", "CurrentActivity", "ExerciseAreaId", "Gender", "Name", "OldCageId", "OwnerId", "TimeOfLastExercise" },
                 values: new object[,]
                 {
-                    { 1, null, 4, null, null, null, null, 0, "Rufus", null, 1, null },
-                    { 28, null, 8, null, null, null, null, 0, "Marvel", null, 24, null },
-                    { 27, null, 9, null, null, null, null, 1, "Mimmi", null, 23, null },
-                    { 26, null, 110, null, null, null, null, 0, "Crawler", null, 22, null },
-                    { 25, null, 12, null, null, null, null, 1, "Gittan", null, 21, null },
-                    { 24, null, 14, null, null, null, null, 0, "Sauron", null, 20, null },
-                    { 23, null, 15, null, null, null, null, 0, "Clint", null, 19, null },
-                    { 22, null, 16, null, null, null, null, 1, "Neko", null, 18, null },
-                    { 21, null, 16, null, null, null, null, 1, "Fiffi", null, 17, null },
-                    { 20, null, 18, null, null, null, null, 1, "Ruby", null, 16, null },
-                    { 19, null, 19, null, null, null, null, 1, "Kimber", null, 15, null },
-                    { 18, null, 20, null, null, null, null, 1, "Amber", null, 14, null },
-                    { 17, null, 21, null, null, null, null, 1, "Robin", null, 13, null },
-                    { 16, null, 22, null, null, null, null, 1, "Bobo", null, 12, null },
-                    { 15, null, 23, null, null, null, null, 0, "Beppe", null, 11, null },
-                    { 14, null, 24, null, null, null, null, 0, "Bulle", null, 10, null },
-                    { 13, null, 3, null, null, null, null, 1, "Malin", null, 9, null },
-                    { 12, null, 3, null, null, null, null, 0, "Chivas", null, 8, null },
-                    { 11, null, 4, null, null, null, null, 0, "Starlight", null, 7, null },
-                    { 10, null, 4, null, null, null, null, 0, "Kurt", null, 7, null },
-                    { 9, null, 5, null, null, null, null, 0, "Kalle", null, 6, null },
-                    { 8, null, 6, null, null, null, null, 1, "Miss Diggy", null, 5, null },
-                    { 7, null, 7, null, null, null, null, 1, "Mulan", null, 4, null },
-                    { 6, null, 8, null, null, null, null, 1, "Sussi", null, 3, null },
-                    { 5, null, 9, null, null, null, null, 0, "Sneaky", null, 3, null },
-                    { 4, null, 10, null, null, null, null, 0, "Nibbler", null, 2, null },
-                    { 3, null, 11, null, null, null, null, 0, "Fluff", null, 2, null },
-                    { 2, null, 12, null, null, null, null, 1, "Lisa", null, 1, null },
-                    { 29, null, 7, null, null, null, null, 0, "Storm", null, 25, null },
-                    { 30, null, 6, null, null, null, null, 1, "Busan", null, 26, null }
+                    { 1, 4, null, null, null, null, 0, "Rufus", null, 1, null },
+                    { 28, 8, null, null, null, null, 0, "Marvel", null, 24, null },
+                    { 27, 9, null, null, null, null, 1, "Mimmi", null, 23, null },
+                    { 26, 110, null, null, null, null, 0, "Crawler", null, 22, null },
+                    { 25, 12, null, null, null, null, 1, "Gittan", null, 21, null },
+                    { 24, 14, null, null, null, null, 0, "Sauron", null, 20, null },
+                    { 23, 15, null, null, null, null, 0, "Clint", null, 19, null },
+                    { 22, 16, null, null, null, null, 1, "Neko", null, 18, null },
+                    { 21, 16, null, null, null, null, 1, "Fiffi", null, 17, null },
+                    { 20, 18, null, null, null, null, 1, "Ruby", null, 16, null },
+                    { 19, 19, null, null, null, null, 1, "Kimber", null, 15, null },
+                    { 18, 20, null, null, null, null, 1, "Amber", null, 14, null },
+                    { 17, 21, null, null, null, null, 1, "Robin", null, 13, null },
+                    { 16, 22, null, null, null, null, 1, "Bobo", null, 12, null },
+                    { 15, 23, null, null, null, null, 0, "Beppe", null, 11, null },
+                    { 14, 24, null, null, null, null, 0, "Bulle", null, 10, null },
+                    { 13, 3, null, null, null, null, 1, "Malin", null, 9, null },
+                    { 12, 3, null, null, null, null, 0, "Chivas", null, 8, null },
+                    { 11, 4, null, null, null, null, 0, "Starlight", null, 7, null },
+                    { 10, 4, null, null, null, null, 0, "Kurt", null, 7, null },
+                    { 9, 5, null, null, null, null, 0, "Kalle", null, 6, null },
+                    { 8, 6, null, null, null, null, 1, "Miss Diggy", null, 5, null },
+                    { 7, 7, null, null, null, null, 1, "Mulan", null, 4, null },
+                    { 6, 8, null, null, null, null, 1, "Sussi", null, 3, null },
+                    { 5, 9, null, null, null, null, 0, "Sneaky", null, 3, null },
+                    { 4, 10, null, null, null, null, 0, "Nibbler", null, 2, null },
+                    { 3, 11, null, null, null, null, 0, "Fluff", null, 2, null },
+                    { 2, 12, null, null, null, null, 1, "Lisa", null, 1, null },
+                    { 29, 7, null, null, null, null, 0, "Storm", null, 25, null },
+                    { 30, 6, null, null, null, null, 1, "Busan", null, 26, null }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Hamsters_ActivityId",
-                table: "Hamsters",
-                column: "ActivityId");
+                name: "IX_Activities_ActivityLoggerId",
+                table: "Activities",
+                column: "ActivityLoggerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityLoggers_HamsterId",
+                table: "ActivityLoggers",
+                column: "HamsterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Hamsters_CageId",
@@ -246,31 +246,21 @@ namespace Tenta_Advnet_Jonathan_Kullman_2.Migrations
                 name: "IX_Hamsters_OwnerId",
                 table: "Hamsters",
                 column: "OwnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Logger_Activities_ActivityId",
-                table: "Logger_Activities",
-                column: "ActivityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Logger_Activities_HamsterId",
-                table: "Logger_Activities",
-                column: "HamsterId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Logger_Activities");
+                name: "Activities");
+
+            migrationBuilder.DropTable(
+                name: "ActivityLoggers");
 
             migrationBuilder.DropTable(
                 name: "Hamsters");
 
             migrationBuilder.DropTable(
-                name: "Activities");
-
-            migrationBuilder.DropTable(
-                name: "Cage");
+                name: "Cages");
 
             migrationBuilder.DropTable(
                 name: "ExerciseAreas");
