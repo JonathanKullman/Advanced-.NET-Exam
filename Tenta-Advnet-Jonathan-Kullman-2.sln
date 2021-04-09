@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenta-Advnet-Jonathan-Kullman-2", "Tenta-Advnet-Jonathan-Kullman-2\Tenta-Advnet-Jonathan-Kullman-2.csproj", "{AD6DA318-F52E-43A7-AD34-F2F3DBA31D7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEndIO", "Tenta-Advnet-Jonathan-Kullman-2\BackEndIO.csproj", "{AD6DA318-F52E-43A7-AD34-F2F3DBA31D7F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEnd", "FrontEnd\FrontEnd.csproj", "{0BCB1759-253A-4374-8523-ADE1EB900601}"
 EndProject
